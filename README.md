@@ -23,3 +23,5 @@ To create the installer, move the python distribution files, so it matches the l
 VisionEval - https://github.com/gregorbj/VisionEval
 
 RSPM - https://github.com/gregorbj/RSPM
+
+RPAT Viewer Pilot - https://github.com/gregorbj/RPAT_Viewer_Pilot
