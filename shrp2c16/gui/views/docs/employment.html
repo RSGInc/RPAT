@@ -1,0 +1,18 @@
+<p>
+This file contains employment data for each of the counties that make up the region. The file is derived from County Business Pattern (CBP) data by county (see <a target="_new" href="http://www.census.gov/econ/cbp/">http://www.census.gov/econ/cbp</a> for more information on this dataset). Industries are categorized by the North American Industrial Classification System (NAICS) 6 digit codes. Firm size categories are:</p>
+<table>
+<tr><td>n1_4</td><td>	-</td><td>	1- 4 employees</td></tr>
+<tr><td>n5_9</td><td>	-</td><td>	5-9 employees</td></tr>
+<tr><td>n10_19</td><td>	-</td><td>	10-19 employees</td></tr>
+<tr><td>n20_99</td><td>	-</td><td>	20-99 employees</td></tr>
+<tr><td>n100_249</td><td>	-</td><td>	100-249 employees</td></tr>
+<tr><td>n250_499</td><td>	-</td><td>	250-499 employees</td></tr>
+<tr><td>n500_999</td><td>	-</td><td>	500-999 employees</td></tr>
+<tr><td>n1000</td><td>	-</td><td>	1,000 or More Employee Size Class</td></tr>
+<tr><td>n1000_1</td><td>	-</td><td>	1,000-1,499 employees</td></tr>
+<tr><td>n1000_2</td><td>	-</td><td>	1,500-2,499 employees</td></tr>
+<tr><td>n1000_3</td><td>	-</td><td>	2,500 to 4, 999 Employees</td></tr>
+<tr><td>n1000_4</td><td>	-</td><td>	Over 5,000 employees</td></tr>
+</table>
+<p>
+While the county field is required to be present, the business synthesis process does not require a meaningful value and therefore users may simply enter “region”. It is also not necessary to use such detailed NAICS categories if those are not available; the current business synthesis model and subsequent models do not use this level of detail (although future versions of the model may) – at minimum, the number of establishments for all employment types can be provided by size category. Regions with significant employment in industries such as government and public administration that are not covered by the CBP may need to add records that to the file that cover this type of employment to more accurately match employment totals in their region.</p>

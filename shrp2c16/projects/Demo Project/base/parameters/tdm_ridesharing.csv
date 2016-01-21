@@ -1,0 +1,5 @@
+PlaceType,Effectiveness
+Rural,0
+Suburban,0.05
+Close In Community,0.1
+Urban Core,0.15

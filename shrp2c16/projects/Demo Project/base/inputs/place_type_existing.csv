@@ -1,0 +1,14 @@
+PlaceType,PopGrowth,EmpGrowth
+Rur,0.05,0.1
+Sub R,0.3,0
+Sub E,0,0.2
+Sub M,0.1,0.1
+Sub T,0,0
+CIC R,0.15,0
+CIC E,0,0.2
+CIC M,0.1,0.1
+CIC T,0,0
+UC R,0.1,0
+UC E,0,0.1
+UC MU,0.1,0.1
+UC T,0.1,0.1

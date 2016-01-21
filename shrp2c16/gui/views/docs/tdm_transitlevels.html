@@ -1,0 +1,7 @@
+<p>tdm_transit.csv and tdm_transitlevels.csv are parameters for the effectiveness (level of vehicle miles traveled reduction) and fare subsidy values for employer subsidized/discounted transit.</p>
+<p>
+The subsidized/discounted transit model begins by evaluating the level of participation within the region. Monte Carlo processes are used to identify which households participate in transit pass programs. The proportion of employees participating in this program is a policy input. This is converted into a proportion of working-age persons by using an assumed labor force participation rate (0.65) to sample working-age persons in households. The model then allows the selection of one of four potential subsidy levels (also a policy inputs), which influence the level of VMT reduction (from tdm_transit.csv) based on the level of subsidy applied to the place type. The anticipated level of VMT reduction is then further reduced to account for the proportion of work travel in overall daily travel.
+</p>
+<p>
+The subsidy levels are matched to the dollar values in tdm_transitlevels.csv.
+</p>

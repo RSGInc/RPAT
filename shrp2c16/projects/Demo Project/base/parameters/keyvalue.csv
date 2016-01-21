@@ -1,0 +1,16 @@
+key,value
+AnnVmtInflator,365
+BaseCostPerMile,0.04
+BaseYear,2005
+BudgetProp,0.1
+FuelCost,1.82
+FutureYear,2035
+GasTax,0.424
+HhDvmtToRoadDvmt,0.95
+LtTruckProp,0.45
+MjPerGallon,121
+PoundToKilogram,0.45
+TranAdjFactor,1.12
+TruckVmtGrowthMultiplier,1
+WorkVmtProp,0.25
+State,OR

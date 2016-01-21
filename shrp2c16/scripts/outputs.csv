@@ -1,0 +1,20 @@
+usedby,filename,name,type,reportable,metric,category,formatter,metricname,units,aggtype
+Policy Adjusted Travel Demand,VehicleTrips.Pt.RData,Daily Vehicle Trips,Direct Travel Impacts,1,VehicleTrips,Pt,comma,Daily Vehicle Trips,(trips),"all,place,area,development"
+Policy Adjusted Travel Demand,TransitTrips.Pt.RData,Daily Transit Trips,Direct Travel Impacts,1,TransitTrips,Pt,comma,Daily Transit Trips,(trips),"all,place,area,development"
+Policy Adjusted Travel Demand,Dvmt.Pt.RData,Daily Vehicle Miles Traveled,Direct Travel Impacts,1,Dvmt,Pt,comma,Daily Vehicle Miles Traveled,(miles),"all,place,area,development"
+Policy Adjusted Congestion,AveSpeed.MaTy.RData,Peak Travel Speeds by Vehicle Type,Direct Travel Impacts,1,AveSpeed,MaTy,comma,Average Travel Speed,(mph),"all,vehtype"
+Policy Adjusted Congestion,VehHr.MaTy.RData,Vehicle Hours of Travel,Direct Travel Impacts,1,VehHr,MaTy,comma,Vehicle Hours of Travel,(hours/day),"all,vehtype"
+Policy Adjusted Congestion,DelayVehHr.MaTy.RData,Vehicle Hours of Delay,Direct Travel Impacts,1,DelayVehHr,MaTy,comma,Vehicle Hours of Delay,(hours/day),"all,vehtype"
+Performance Metrics,Emissions.Pt.RData,Greenhouse Gas Emissions,Environment and Energy Impacts,1,Emissions,Pt,comma,Greenhouse Gas Emissions,(tonnes/day),"all,place,area,development"
+Performance Metrics,Fuel.Pt.RData,Fuel Consumption,Environment and Energy Impacts,1,Fuel,Pt,comma,Fuel Consumption,(gallons/day),"all,place,area,development"
+Performance Metrics,HighwayCost.Ma.RData,Regional Infrastructure Costs for Highway,Financial and Economic Impacts,1,HighwayCost,Ma,dollar,Highway Infrastructure Cost,(dollars/year),all
+Performance Metrics,TransitCapCost.Ma.RData,Regional Infrastructure Costs for Transit,Financial and Economic Impacts,1,TransitCapCost,Ma,dollar,Transit Infrastructure Cost,(dollars/year),all
+Performance Metrics,TransitOpCost.Ma.RData,Annual Transit Operating Cost,Financial and Economic Impacts,1,TransitOpCost,Ma,dollar,Transit Operating Cost,(dollars/year),all
+Performance Metrics,Costs.Pt.RData,Annual Traveler Cost (Fuel and Charges),Financial and Economic Impacts,1,Costs,Pt,dollar,Travel Costs,(dollars/year),"all,place,area,development"
+Policy Adjusted Travel Demand,Access.Ma.RData,Regional Accessibility,Location Impacts,1,Access,Ma,percent,Job Accessibility,(percent change),all
+Performance Metrics,Accidents.As.RData,Accident Rates,Community Impacts,1,Accidents,As,comma,Accidents,(accidents/year),"all,accsev"
+Policy Adjusted Travel Demand,Walking.Ma.RData,Walking Percentage Increase,Community Impacts,1,Walking,Ma,percent,Walking,(percent change),all
+Policy Adjusted Travel Demand,Equity.Ig.RData,Job Accessibility by Income Group,Community Impacts,1,Equity,Ig,percent,Job Accessibility,(percent change),"all,incgrp"
+Performance Metrics,Pop.Pt.RData,Population,Summaries of Inputs,1,Pop,Pt,comma,Population,(number of people),"all,place,area,development"
+Performance Metrics,Emp.Pt.RData,Employment,Summaries of Inputs,1,Emp,Pt,comma,Employment,(number of jobs),"all,place,area,development"
+Performance Metrics,Inc.Pt.RData,Income,Summaries of Inputs,1,Inc,Pt,dollar,Income,(dollars/year),"all,place,area,development"

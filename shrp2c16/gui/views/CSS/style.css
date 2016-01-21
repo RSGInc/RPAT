@@ -1,0 +1,62 @@
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform: 
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+    margin-left:-10px;
+    padding-right:20px;
+    valign:left;
+  width: 20px;
+}
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  /*padding: 10px 10px;*/
+
+}
+			#files li{
+				list-style-type:none;
+				text-decoration:none;
+				margin:1px;
+				width:18em;
+				color:#555555;
+				border: 1px solid #DDDDDD;
+				background-color: #FAFAFA;
+    			background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+				font-weight:bold;
+				padding:1px;
+			}
+			.scenario{
+				margin:1px;
+				width:18em;
+				font-weight:bold;
+				padding:5px;
+				color:#555555;
+				border: 1px solid #DDDDDD;
+				background-color: #FAFAFA;
+    			background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+				
+			}
+			#scenarios li{
+				list-style-type:none;
+				line-height:30px;
+			}
+			.files li:hover{
+				background-color:White;
+				color:Black;	
+			}
+			#stateFiles li:hover{
+				background-color:White;
+				color:Black;	
+			}
+			.handsontable td {
+				width:400px;
+			    color:Black;
+			    background-color:White;
+			}

@@ -1,0 +1,114 @@
+digraph G {
+  node [style=filled, shape=box, fillcolor=white];
+
+  subgraph cluster1 {
+    label="Regional Baseline Data (from MPO)";
+    style=filled;
+    fillcolor=lightblue;
+    pop_emp [label="Population and Employment"];
+    lane_mi_fwy_art [label="Lane Miles of Fwy, Arterial"];
+    trans_rev [label="Transit Revenue Miles Bus, Rail"];
+    real_estate_mkt_cap_by_place_type [label="Real Estate Market Cap by Place Type"];
+    vmt_vt_tran_trips_per_capita [label="VMT, VT, Transit Trips per Capita"];
+
+    //HACK: make vertically aligned
+    pop_emp -> lane_mi_fwy_art -> trans_rev -> real_estate_mkt_cap_by_place_type -> vmt_vt_tran_trips_per_capita
+    [style=invis, len=0];
+  }
+
+  subgraph cluster2 {
+    label="User-Supplied Scenario Input";
+    style=filled;
+    fillcolor=lightblue;
+    growth_place_type [label="% of Growth in Each Place-Type Category"];
+    per_vmt_auto_oper_cost [label="% Increase in per-VMT Auto Oper Cost"];
+    fwy_art_lane_mi_per_capita [label="% Increase in Fwy. Arterial Lane Mi / Capita"];
+    bus_rail_rev_mi_per_capita [label="% Increase in Bus, Rail Revenue Mi / Capita"];
+
+    //HACK: make vertically aligned
+    growth_place_type -> per_vmt_auto_oper_cost -> fwy_art_lane_mi_per_capita -> bus_rail_rev_mi_per_capita
+    [style=invis];
+  }
+
+  subgraph cluster3 {
+    label="User-Supplied TDM Policy Input";
+    style=filled;
+    fillcolor=lightblue;
+    auto_op_surchg_per_vmt [label="Auto Operating Surcharge per VMT"];
+    inc_commute_trip_parking [label="Increase in Commute Trip Parking $ and % of Spaces"];
+    inc_commercial_parking [label="Increase in Commercial Parking $ and % of Spaces"];
+    inc_perc_of_commute_option_offers [label="Increase in % of Employees Offered Commute Options"];
+    perc_fwy_arterial_mi_with_itstreatment [label="% of Fwy and Arterial Mi with ITStreatment"];
+    frght_log_and_loc_strategies [label="Freight Logistics and Locational Strategies"];
+
+    //HACK: make vertically aligned
+    auto_op_surchg_per_vmt -> inc_commute_trip_parking -> inc_commercial_parking -> 
+	inc_perc_of_commute_option_offers -> perc_fwy_arterial_mi_with_itstreatment -> 
+        frght_log_and_loc_strategies [style=invis];
+  }
+
+  subgraph cluster4 {
+    style=filled;
+    fillcolor=green;
+    household_bus_syn [label="Household Business Synthesis\n(size, age, income)"];
+    urban_form_dem [label="Urban Form Demographics"];
+    auto_ownership [label="Auto Ownership"];
+  }
+
+  subgraph cluster5 {
+    style=filled;
+    fillcolor=blue;
+    scen_vmt_vt_tt_per_capita [label="Scenario VMT, VT, TT Per Capita"];
+    scen_congest_vmt_spd_fac_class [label="Scenario Congestion VMT by Speed and Facility Class"];
+    policy_adj_vmt_vt_TT_per_capita [label="Policy Adjusted VMT, VT, TT Per Capita"];
+    heav_truck_vmt_fac_class [label="Heavy Truck VMT by Facility Class"];
+  }
+
+  subgraph cluster6 {
+    style=filled;
+    fillcolor=yellow;
+    ind_sup_grwth_travel [label="Induced / Supressed Growth and Travel"];
+    policy_benefit_to_speed_congest [label="Policy Benefits to Speed, Congestion"];
+  }
+  
+  subgraph cluster7 {
+    label="Regional Accessibility";
+    style=filled;
+    fillcolor=red;
+    reg_auto_access [label="Auto"];
+    reg_tran_access [label="Transit"];
+  }
+
+  pop_emp -> household_bus_syn;
+  lane_mi_fwy_art -> reg_auto_access;
+  trans_rev -> reg_tran_access;
+  real_estate_mkt_cap_by_place_type -> urban_form_dem;
+  vmt_vt_tran_trips_per_capita -> scen_vmt_vt_tt_per_capita;
+
+  growth_place_type -> urban_form_dem;
+  per_vmt_auto_oper_cost -> auto_ownership;
+  fwy_art_lane_mi_per_capita -> scen_congest_vmt_spd_fac_class;
+  bus_rail_rev_mi_per_capita -> scen_congest_vmt_spd_fac_class;
+
+  auto_op_surchg_per_vmt -> policy_adj_vmt_vt_TT_per_capita;
+  inc_commute_trip_parking -> policy_adj_vmt_vt_TT_per_capita;
+  inc_commercial_parking-> policy_adj_vmt_vt_TT_per_capita;
+  inc_perc_of_commute_option_offers-> policy_adj_vmt_vt_TT_per_capita;
+
+  perc_fwy_arterial_mi_with_itstreatment-> scen_congest_vmt_spd_fac_class;
+  frght_log_and_loc_strategies-> heav_truck_vmt_fac_class;
+
+  household_bus_syn -> urban_form_dem;
+  household_bus_syn -> heav_truck_vmt_fac_class;
+  urban_form_dem -> scen_vmt_vt_tt_per_capita;
+  urban_form_dem -> auto_ownership;
+  auto_ownership -> scen_vmt_vt_tt_per_capita;
+  reg_auto_access -> scen_vmt_vt_tt_per_capita;
+  reg_tran_access -> scen_vmt_vt_tt_per_capita;
+  scen_vmt_vt_tt_per_capita -> scen_congest_vmt_spd_fac_class;
+  heav_truck_vmt_fac_class -> scen_congest_vmt_spd_fac_class;
+  scen_congest_vmt_spd_fac_class -> policy_benefit_to_speed_congest;
+  scen_vmt_vt_tt_per_capita -> policy_benefit_to_speed_congest;
+  policy_benefit_to_speed_congest -> scen_congest_vmt_spd_fac_class;
+  scen_congest_vmt_spd_fac_class ->  ind_sup_grwth_travel [arrowtail=tee];
+}

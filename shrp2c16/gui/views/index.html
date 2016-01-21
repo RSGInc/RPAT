@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+	    <title>RapidPolicy</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link rel="stylesheet" type="text/css" href="/CSS/jquery-ui-1.9.1.custom.css">
+		<link rel="stylesheet" type="text/css" href="/CSS/jquery.handsontable.css">
+		<link rel="stylesheet" type="text/css" href="/JScripts/jQuery-contextMenu/jquery.contextMenu.css">
+	    <!-- Bootstrap -->
+	    <link href="CSS/bootstrap.min.css" rel="stylesheet" media="screen">
+	    <link href="CSS/style.css" rel="stylesheet" media="screen">
+	    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	    <script src="JScripts/bootstrap.min.js"></script>
+	    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/JScripts/bootstrap-typeahead.js"></script>
+		<script type="text/javascript" src="/JScripts/jQuery-contextMenu/jquery.contextMenu.js"></script>
+		<script type="text/javascript" src="/JScripts/jQuery-contextMenu/jquery.ui.position.js"></script>
+		<script type="text/javascript" src="/JScripts/jquery.handsontable.js"></script>
+	    <script type="text/javascript" src="/JScripts/jquery.blockUI.js"></script>
+	    <script type="text/javascript" src="/JScripts/script.js"></script>
+	    <style type="text/css">
+       * {
+            margin: 0;
+            }
+            html, body {
+            height: 85%;
+            }
+            body{
+            min-width:800px;
+            min-height:600px;
+            }
+            .wrapper {
+            min-height: 97%;
+            height: auto !important;
+            height: 98%;
+            margin: 0 auto 5em; /* 5 works */
+            padding-bottom:2%;
+            }
+            .footer, .push {
+            height: 7em;
+            padding-top:3em; /* 2 works*/
+            }
+	    	.widemodal{
+	    		width:850px;
+	    		margin: 0px 0 0 -450px; 
+	    	}
+	    	.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus{
+	    		font-weight:bold;
+	    		text-decoration:underline;
+	    	}
+	    </style>
+	</head>
+	<body>
+   <div class="wrapper">
+        <div style="width:98%;margin-bottom:0%;padding:1%" class='navbar'>
+            <img src="img/TCAAP_C16_logos_06.png" style="width:175px" width="175"  />
+            <div style="float:right">
+            <img src="img/TravelWorks_nav.png" style="width:250px" width="250"  />
+            </div>
+        </div>
+  	  	<div class='navbar' style="padding-top:0px">
+			<div class='navbar-inner'>
+				<div class='container'>
+			        <a class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>
+			          	<span class="icon-bar"></span>
+			          	<span class="icon-bar"></span>
+			         	 <span class="icon-bar"></span>
+			        </a>
+				   	<div class="nav-collapse nav-tabs">
+						<ul class='nav'>
+							<li><a href='#home_tab' data-toggle="tab" >Home</a></li>
+							<li><a href='#scenarios_tab'  data-toggle="tab" >Scenarios</a></li>
+							<li><a href="#reports_tab" data-toggle="tab">Reporting</a></li>
+                            <li><a href="docs/Users Guide.pdf" target="_new"  >Users Guide</a></li>
+						</ul>
+					</div>    
+				</div>    
+			</div>
+  		</div>
+  		
+		<div class="tab-content" style="padding:1em;">
+			<div class="tab-pane active" id="home_tab">
+				<p>
+					<div style="margin:3em;">
+                        RPAT is a scenario planning software tool that synthesizes households and firms in a region and determines their travel demand characteristics based on the built environment and transportation policies.
+                    
+						<div id="firstRun" style="display:block" >
+							<h4>Set up the base scenario</h4>
+							<button id=setupbutton class="btn btn-primary">Get Started</button>
+						</div>
+						<div id="alreadySetup" style="display:none">
+							<h4>Scenarios</h4>
+							<ul id=scenarios style="padding=left:2em;" ></ul><br />
+							<button id=NewScenario  class="btn btn-primary">Create New Scenario</button>
+						</div>
+					</div>
+				</p>
+			</div>
+			
+			<div class="tab-pane tabbable pull-top" id="scenarios_tab">
+				Active Scenario:<br /><select id=manageScenario ></select>&nbsp;<button id=NewScenario2  class="btn btn-primary" style="margin-top:-10px;">Create New Scenario</button><br />
+		    		<div id='scenario_details' style='display:none'>
+                    <div class="tab-content" style="margin:none;padding:none;">
+		    		<ul class="pull-top pull-left nav nav-tabs nav-stacked boldclass" style="margin-right:1em;width:10em;">
+					    <li> <a href="#statefiles_tab" data-toggle="tab" >Parameters</a></li>
+					    <li> <a href="#files_tab" data-toggle="tab" >Scenario Inputs</a></li>
+					    <li><a href="#run_tab" data-toggle="tab" >Run</a></li>
+					    <li><a href="#output_tab" data-toggle="tab" >Outputs</a></li>
+				  </ul>
+		    			<div class="tab-pane" id="statefiles_tab"   >
+							<table>
+									<tr>
+										<td valign=top style="width:18.5em;">
+											<div id=filediv >
+												<div class="accordion" id="stateaccordian" style="width:20em" >
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#stateaccordian" href="#fileCollapseSix">
+																Parameters
+															</a>
+														</div>
+														<div id="fileCollapseSix" class="accordion-body">
+															<div class="accordion-inner">
+																<ul class="files"  id=stateFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" style="display:none">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#stateaccordian" href="#fileCollapseSeven">
+																State Population Forecast Files
+															</a>
+														</div>
+														<div id="fileCollapseSeven" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files"  id=stateForecastFiles ></ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>						
+										<td valign=top>
+											<div style='padding-left:1em;'>
+												<div style='padding-left:1em;display:none;' id="stateFileEdit">
+													<div class="accordion" id="statedocaccordion">
+														
+                                                        <div id="parameter_documentation_name_div"></div>
+														<div style='overflow:auto;width:60em;'>
+															<div id=editStateTable2 ></div>
+														</div>
+														<br />
+														<button class="btn btn-primary" id="saveStateFile"> Save </button>
+                                                        <br /><br />
+                                                        <div id="state_doc_accordion" class="accordion-group">
+															<div class="accordion-heading">
+																<a class="accordion-toggle" data-toggle="collapse" data-parent="#statedocaccordian" href="#statedoccollapse">
+                                                                <span id="showhidestatetext">Hide </span> Documentation
+																</a>
+															</div>
+															<div id="statedoccollapse" class="accordion-body collapse in">
+																<div class="accordion-inner">
+																	<div id=statedocumentationdiv style="display:none">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</table>
+						</div>
+		    			<div class="tab-pane" id="files_tab" >
+								<table>
+									<tr>
+										<td valign=top style="width:12em;">
+											<div id=filediv >
+												<div class="accordion" id="accordion2" style="width:20em;">
+													<div class="accordion-group" style="display:none">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#fileCollapseFive">
+																Settings
+															</a>
+														</div>
+														<div id="fileCollapseFive" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files"  id=settingsFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#fileCollapseOne">
+																Built Environment 
+															</a>
+														</div>
+														<div id="fileCollapseOne" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=build_environment ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#fileCollapseTwo">
+																Demand
+															</a>
+														</div>
+														<div id="fileCollapseTwo" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files"  id=demand ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#fileCollapseThree">
+																Policy
+															</a>
+														</div>
+														<div id="fileCollapseThree" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files"  id=policy ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#fileCollapseFour">
+																Supply
+															</a>
+														</div>
+														<div id="fileCollapseFour" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files"  id=supply ></ul>
+															</div>
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</td>						
+										<td valign=top>
+											<div style='padding-left:1em;'>
+												<div id=buttondiv style="display:none" >
+													<div class="accordion" id="accordion3">
+														
+                                                        <div id="documentationnamediv"></div>
+														<div style='overflow:auto;width:60em;'>
+															<div id=editTable2 ></div>
+															<br />
+														<button class="btn btn-primary" id="save"> Save </button>
+														</div>
+                                                        <br /><br />
+                                                        <div class="accordion-group" id="doc_accordion">
+															<div class="accordion-heading">
+																<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseOne">
+																	<span id="showhidetext">Hide </span> Documentation
+																</a>
+															</div>
+															<div id="collapseOne" class="accordion-body collapse in">
+																<div class="accordion-inner">
+																	<div id=documentationdiv style="display:none">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+											</div>
+										</td>
+									</tr>
+								</table>
+							
+						</div>
+						<div class="tab-pane" id="run_tab">
+							<div style="margin-left:12em;">
+							<p>
+						    	<h3 id=runningScenario ></h3>
+						    	<button class="btn btn-primary" id=startrun >Start Run</button><br /><br />
+                                <div id='household_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Household and Firm Model</div>
+                                <div id='urban_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Urban Form Models</div>
+                                <div id='accessibility_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Accessibility Models</div>
+                                <div id='vehicle_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Vehicle Models</div>
+                                <div id='demand_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Travel Demand Models</div>
+                                <div id='congestion_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Congestion</div>
+                                <div id='induced_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Induced Growth and Travel</div>
+                                <div id='policyvmt_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Policy Adjusted Travel Demand</div>
+                                <div id='policycongestion_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Policy Adjusted Congestion</div>
+                                <div id='metrics_step' style="height:2em;width:15em;background-color:LightGray;border:2px solid Black;margin-bottom:5px;padding:3px;">Performance Metric</div>
+							</p>
+							</div>
+						</div>
+                       
+						<div class="tab-pane" id="output_tab" >
+							
+								<table>
+									<tr>
+                                    
+										<td valign=top style="width:19em;">
+											<div id="outputFileDisplay" style="margin-left:1em;" >
+											<div class="accordion" id="outputFileAccordion" style="width:15em;">
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputFileAccordion" href="#outputFileCollapse">
+																Community Impacts
+															</a>
+														</div>
+														<div id="outputFileCollapse" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=communityImpactFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputFileAccordion" href="#outputFileCollapse2">
+																Direct Travel Impacts
+															</a>
+														</div>
+														<div id="outputFileCollapse2" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=directTravelImpactFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputFileAccordion" href="#outputFileCollapse3">
+																Environment and Energy Impacts
+															</a>
+														</div>
+														<div id="outputFileCollapse3" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=environmentAndEnergyImpactFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputFileAccordion" href="#outputFileCollapse4">
+																Financial and Economic Impacts
+															</a>
+														</div>
+														<div id="outputFileCollapse4" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=financialAndEconomicImpactFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputFileAccordion" href="#outputFileCollapse5">
+																Location Impacts
+															</a>
+														</div>
+														<div id="outputFileCollapse5" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=locationImpactFiles ></ul>
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group" >
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputFileAccordion" href="#outputFileCollapse6">
+																Summaries of Inputs
+															</a>
+														</div>
+														<div id="outputFileCollapse6" class="accordion-body collapse">
+															<div class="accordion-inner">
+																<ul class="files" id=summariesOfInputFiles ></ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+										</td>						
+										<td valign=top>
+                                                     
+											<div id="outputdocumentationnamediv"></div>
+											<div style='overflow:auto;width:60em;' id=outputTableDisplay >
+												
+												<div id=outputTable ></div>
+                                                <br /><br />
+                                                <div id=outputDocumentationDisplay style="display:none;">	
+												<div id="output_doc_accordion" class="accordion-group">
+													<div class="accordion-heading">
+														<a class="accordion-toggle" data-toggle="collapse" data-parent="#outputAccordian" href="#collapseOutput">
+															<span id="showhideoutputtext">Hide </span> Documentation
+														</a>
+													</div>
+													<div id="collapseOutput" class="accordion-body collapse in">
+														<div class="accordion-inner">
+															<div id=outputdocumentationdiv style="display:none">
+															</div>
+														</div>
+													</div>
+												</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+		    		</div>
+				
+			</div>
+			
+            <div class="tab-pane tabbable pull-top" id="reports_tab">
+            <div style="margin:2em;">
+            <p>
+            Please select from the report options below. <br />
+            <i>Note that you must select at least one option from each category.</i>
+            </p>
+            <table>
+            <tr>
+            <th valign=top align=left ><h4 style='Color:#0281AC' >Scenarios &nbsp;&nbsp;</h4></th>
+            <th valign=top align=left ><h4 style='Color:#0281AC' >Measures &nbsp;&nbsp;</h4></th>
+            <th valign=top align=left ><h4 style='Color:#0281AC'>Performance Metrics</h4></th>
+            </tr>
+            <tr>
+            <td valign=top>
+                <div id=report_scenarios ></div>
+            </td>
+            <td valign=top>
+                <input type=checkbox name='report_measure[]' value='comma' /> Number<br />
+                <input type=checkbox name='report_measure[]' value='percentage' /> Percentage<br />
+                <input type=checkbox name='report_measure[]' value='index100' /> Index(100)<br />
+                <input type=checkbox name='report_measure[]' value='index0' /> Index(0)<br />
+            </td>
+            <td valign=top>
+            <div style="margin-top:-10.3em;">
+            <table>
+            <tr>
+                <th><div><span></span></div></th>
+                <th class="rotate"><div><span>All</span></div></th>
+                <th class="rotate"><div><span>Place</span></div></th>
+                <th class="rotate"><div><span>Area</span></div></th>
+                <th class="rotate"><div><span>Development</span></div></th>
+                <th class="rotate"><div><span>Vehicle Type</span></div></th>
+                <th class="rotate"><div><span>Accident Severity</span></div></th>
+                <th class="rotate"><div><span>Income Group</span></div></th>
+            </tr>
+            <tr>
+                <td align="left">Daily Vehicle Trips</td>
+                <td align="right"><input value="all_VehicleTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_VehicleTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_VehicleTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_VehicleTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Daily Transit Trips</td>
+                <td align="right"><input value="all_TransitTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_TransitTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_TransitTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_TransitTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_TransitTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_TransitTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_TransitTrips_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Daily Vehicle Miles Traveled</td>
+                <td align="right"><input value="all_Dvmt_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Dvmt_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Dvmt_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Dvmt_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Dvmt_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Dvmt_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Dvmt_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Greenhouse Gas Emissions</td>
+                <td align="right"><input value="all_Emissions_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Emissions_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Emissions_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Emissions_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Emissions_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Emissions_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Emissions_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Fuel Consumption</td>
+                <td align="right"><input value="all_Fuel_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Fuel_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Fuel_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Fuel_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Fuel_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Fuel_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Fuel_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Annual Traveler Cost (Fuel and Charges)</td>
+                <td align="right"><input value="all_Costs_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Costs_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Costs_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Costs_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Costs_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Costs_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Costs_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Population</td>
+                <td align="right"><input value="all_Pop_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Pop_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Pop_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Pop_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Pop_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Pop_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Pop_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Employment</td>
+                <td align="right"><input value="all_Emp_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Emp_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Emp_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Emp_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Emp_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Emp_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Emp_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Income</td>
+                <td align="right"><input value="all_Inc_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Inc_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="area_Inc_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="development_Inc_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Inc_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Inc_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Inc_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            
+            <tr>
+                <td align="left">Peak Travel Speeds by Vehicle Type</td>
+                <td align="right"><input value="all_AveSpeed_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_AveSpeed_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_AveSpeed_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_AveSpeed_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_AveSpeed_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="accsev_AveSpeed_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_AveSpeed_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Vehicle Hours of Travel</td>
+                <td align="right"><input value="all_VehHr_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_VehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_VehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_VehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_VehHr_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="accsev_VehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_VehHr_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Vehicle Hours of Delay</td>
+                <td align="right"><input value="all_DelayVehHr_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_DelayVehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_DelayVehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_DelayVehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_DelayVehHr_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="accsev_DelayVehHr_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_DelayVehHr_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Accident Rates</td>
+                <td align="right"><input value="all_Accidents_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Accidents_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_Accidents_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_Accidents_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Accidents_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Accidents_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Accidents_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Job Accessibility by Income Group</td>
+                <td align="right"><input value="all_Equity_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Equity_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_Equity_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_Equity_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Equity_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Equity_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Equity_VehicleTrips_comma" name="report_metrics[]" type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Regional Infrastructure Costs for Highway</td>
+                <td align="right"><input value="all_HighwayCost_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_HighwayCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_HighwayCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_HighwayCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_HighwayCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_HighwayCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_HighwayCost_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            <tr>
+                <td align="left">Regional Infrastructure Costs for Transit</td>
+                <td align="right"><input value="all_TransitCapCost_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_TransitCapCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_TransitCapCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_TransitCapCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_TransitCapCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_TransitCapCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_TransitCapCost_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+             <tr>
+                <td align="left">Annual Transit Operating Cost</td>
+                <td align="right"><input value="all_TransitOpCost_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_TransitOpCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_TransitOpCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_TransitOpCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_TransitOpCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_TransitOpCost_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_TransitOpCost_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+             <tr>
+                <td align="left">Regional Accessibility</td>
+                <td align="right"><input value="all_Access_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Access_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_Access_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_Access_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Access_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Access_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Access_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr> <tr>
+                <td align="left">Walking Percentage Increase</td>
+                <td align="right"><input value="all_Walking_comma" name="report_metrics[]" type='checkbox' /></td>
+                <td align="right"><input value="place_Walking_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="area_Walking_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="development_Walking_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="vehtype_Walking_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="accsev_Walking_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+                <td align="right"><input value="incgrp_Walking_VehicleTrips_comma" name="report_metrics[]" disabled type='checkbox' /></td>
+            </tr>
+            </table>
+            </div>
+            </table>
+             <br /><br />
+             <div id="report_indicator" style="display:none">
+             <img src="img/progress.gif" />
+            
+                <br /><br />
+             </div>
+                <button id=run_report >Run Report</button>
+                <button id="clear_report">Clear Report</button>
+  
+              <div id='report_images' >
+            </div>
+            </div>
+            
+            <div class="tab-pane" id="user_guide_tab">
+				<p></p>
+			</div>
+			<div class="tab-pane" id="model_documentation_tab">
+				<p></p>
+			</div>
+			
+	  	</div>
+	  	<div id="newScenarioForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  		<div class="modal-header">	  
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >x</button>
+				<h3 id="myModalLabel">Create New Scenario</h3>
+			</div>
+	  		<div class="modal-body">
+				<form>
+					<fieldset>
+						<div id=scenarioAlert class="alert alert-error" style="display:none">
+							Please type a scenario name.
+						</div>
+						This window allows you to create a new future scenario for testing a policy or set of policies aimed at reducing transportation energy and/or greenhouse gas emissions. First, give the future scenario a name. To facilitate quick development of alternative scenarios, you can start with a set of files from another scenario you have already run, or from the base future scenario ("business as usual").
+						<h5>Scenario Name</h5>
+						<input type="text" name="scenarioname" id="scenarioname" class="text ui-widget-content ui-corner-all" />
+				 		<br />
+						<h5>Copy from:</h5>
+						<select id=copyScenario ></select><br /><br />
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button id=createScenarioButton class="btn btn-primary">Create New Scenario</button>
+			</div>
+		</div>
+		<div id="getStarted" class="modal hide fade widemodal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">	  
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >x</button>
+				<h3 id="myModalLabel">Set up the Base Scenario</h3>
+			</div>
+			<div class="modal-body">
+				<form>
+					<fieldset>
+						
+						The base scenario is named Base. It is used to identify the scenario and to create a directory to hold the actual input/output files.<br />
+						<div id=firstScenarioAlert class="alert alert-error" style="display:none">
+							Please type a scenario name.
+						</div>
+						<h5>Scenario Name</h5>
+						<input type="text" name="firstScenarioName" id="firstScenarioName" value="Base" readonly class="text ui-widget-content ui-corner-all" />
+					 	<br />
+					 	
+						<div id=template style="display:none" >
+					 	<br /><br />
+						Copy from:<br /><br />
+						<select id=firstCopyScenario ></select><br /><br />
+						</div>
+						A model run is based on a number of input files. The Base Scenario represents a "business as usual" future. It is the scenario against which you will compare different 
+						policy scenarios to understand their impact.<br /><br />
+						To create the Base Scenario, click on the Create Base Scenario button below and go to the Scenarios tab. In the Scenarios tab, you can edit input files based on the assumptions you want to make or policies you want to test. Once you are done editing the input files, you will have the ability to run the future scenario and look at the results.
+						<br /><br />
+						To create a new scenario, simply go back to this page and press the Create New Scenario button.
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button id=firstCreateScenarioButton class="btn btn-primary">Create Base Scenario</button>
+			</div>
+		</div>
+		<div id="firstRunDiv" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  		<div class="modal-header">	  
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >x</button>
+				<h3 id="myModalLabel">First Run</h3>
+			</div>
+	  		<div class="modal-body">
+				<form>
+					<fieldset>
+						
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button id="firstRunStateButton" class="btn btn-primary">Set State</button>
+			</div>
+		</div>
+		<div id="deleteConfirm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  		<div class="modal-header">	  
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >x</button>
+				<h3 id="myModalLabel">Remove the directory?</h3>
+			</div>
+	  		<div class="modal-body">
+	  			<input type=hidden id=directoryToDelete />
+	  			<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>The directory and associated files will be permanently deleted and cannot be recovered. Are you sure?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button id="deleteScenarioButton" class="btn btn-primary">Delete Scenario</button>
+			</div>
+		</div>
+        <div id="push"></div>
+        </div>
+    </div>    
+    <div id="footer" class="footer" style="margin-left:2em">
+    <div style="float:left;clear:left;">
+    <p>Click <a target="_new" href="http://planningtools.transportation.org/10/travelworks.html"><b>here</b></a> to go to the planning website.</p>
+<p >v 1.6 - <a href="http://rsginc.com"><span style="color:#474749"> powered by RSG</span> <img style="width:30px" src="img/RSG.jpg" width="30px"  /> </a></p>
+</div>
+    </div>
+  	</body>
+</html>

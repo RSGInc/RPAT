@@ -1,0 +1,14 @@
+PlaceType,Density,Diversity,Design,Regional_Accessibility,Distance_to_Transit
+Rural Greenfield,0.5,0.5,0.5,0.5,0.5
+Sub Residential,0.75,0.75,0.75,0.75,0.75
+Sub Employment,0.75,0.75,0.75,0.75,0.75
+Sub Mixed-Use,1,1,1,0.75,0.75
+Sub TOD,1,1,1,1,1
+CIC Residential,1.2,1.2,1.2,1.2,1
+CIC Employment,1.2,1.2,1.2,1.2,1
+CIC Mixed-Use,1.2,1.2,1.2,1.2,1
+CIC TOD,1.2,1.2,1.2,1.2,1.2
+UC Residential,1.5,1.2,1.5,1.5,1.2
+UC Employment,1.5,1.2,1.5,1.5,1.2
+UC Mixed-Use,1.5,1.5,1.5,1.5,1.2
+UC TOD,1.5,1.5,1.5,1.5,1.5

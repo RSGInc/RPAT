@@ -1,0 +1,23 @@
+<p>transportation_costs.csv contains unit cost rates for transportation infrastructure investments and operating costs and transit fare revenue. The parameters are used in the calculations of the transportation costs performance metrics.</p>
+<p>
+The source for transit capital, operating costs, and fare revenue is the National Transit Database (NTD, which is available online at <a href="http://www.ntdprogram.gov/ntdprogram/" target="_new">http://www.ntdprogram.gov/ntdprogram/</a>), and in particular the National Transit Profile which is available on the NTDB website. Costs are available in a variety of index formats, e.g., cost per revenue mile or hour; cost per passenger trip is used in RPAT. </p>
+<p>
+The source for highway infrastructure costs is FHWA’s Highway Economic Requirements System model, or HERS. Information was obtained from Chapter 6 of the 2005 Technical Report for all US states (FHWA, 2005). Table 8-1 in HERS provides unit costs (per lane mile) for both Rural and Urban highway systems, and distinguishes among three functional classes: interstates, freeways and expressways; other principal arterials; and minor arterials and collectors. Costs estimates are provided for the following improvements:
+</p>
+<p>
+<ul>
+<li>Reconstruction and widening</li>
+<li>Reconstruct pavement</li>
+<li>Resurface and widen lanes</li>
+<li>Resurface pavement</li>
+<li>Improve shoulders</li>
+</ul>
+</p>
+<p>
+Additional choices are offered to distinguish between adding a lane at “normal” vs. “high cost”, and also for pavement realignment, also under normal vs. high cost conditions. For practical reasons, it was decided to use only “new construction” (which also includes adding lanes) costs as the basis for the cost estimates, and to ignore the categories of reconstruction, resurfacing, and realignment. These construction costs include right of way, construction, and a “small” allowance for bridges and support facilities.</p>
+<p>
+The infrastructure costs focus only on the “urban” system, not rural, which also makes it possible to differentiate by three size classes: Small Urban, Small Urbanized, and Large Urbanized. The numbers from HERS are in 2002 dollars; FHWA advises escalation to current dollars using its National Highway Construction Cost Index (NHCCI, which is available online at <a href="http://www.fhwa.dot.gov/policyinformation/nhcci.cfm" target="_new" >http://www.fhwa.dot.gov/policyinformation/nhcci.cfm</a>); the report in RPAT escalates uses this Index to escalate to 2010 values.
+</p>
+<p>
+The parameter values in transportation_costs.csv are average values per lane mile, simplifying the calculations of highway costs to just differentiate investments in freeway vs. arterial functional class roads. 
+</p>

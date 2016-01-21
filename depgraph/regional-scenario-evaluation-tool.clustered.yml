@@ -1,0 +1,156 @@
+pop_emp:
+    name: "Population and Employment"
+    type: input
+lane_mi_fwy_art:
+    name: "Lane Miles of Fwy, Arterial"
+    type: input
+trans_rev:
+    name: "Transit Revenue Miles Bus, Rail"
+    type: input
+real_estate_mkt_cap_by_place_type:
+    name: "Real Estate Market Cap by Place Type"
+    type: input
+vmt_vt_tran_trips_per_capita:
+    name: "VMT, VT, Transit Trips per Capita"
+    type: input
+
+growth_place_type:
+    name: "% of Growth in Each Place-Type Category"
+    type: input
+per_vmt_auto_oper_cost:
+    name: "% Increase in per-VMT Auto Oper Cost"
+    type: input
+fwy_art_lane_mi_per_capita:
+    name: "% Increase in Fwy. Arterial Lane Mi / Capita"
+    type: input
+bus_rail_rev_mi_per_capita:
+    name: "% Increase in Bus, Rail Revenue Mi / Capita"
+    type: input
+
+auto_op_surchg_per_vmt:
+    name: "Auto Operating Surcharge per VMT"
+    type: input
+inc_commute_trip_parking:
+    name: "Increase in Commute Trip Parking $ and % of Spaces"
+    type: input
+inc_commercial_parking:
+    name: "Increase in Commercial Parking $ and % of Spaces"
+    type: input
+inc_perc_of_commute_option_offers:
+    name: "Increase in % of Employees Offered Commute Options"
+    type: input
+perc_fwy_arterial_mi_with_itstreatment:
+    name: "% of Fwy and Arterial Mi with ITStreatment"
+    type: input
+frght_log_and_loc_strategies:
+    name: "Freight Logistics and Locational Strategies"
+    type: input
+
+household_bus_syn:
+    name: "Household Business Synthesis\n(size, age, income)"
+    type: process
+    dependencies:
+        - pop_emp
+urban_form_dem:
+    name: "Urban Form Demographics"
+    type: process
+    dependencies:
+        - household_bus_syn
+        - real_estate_mkt_cap_by_place_type
+auto_ownership:
+    name: "Auto Ownership"
+    type: process
+    dependencies:
+        - urban_form_dem
+        - per_vmt_auto_oper_cost
+scen_vmt_vt_tt_per_capita:
+    name: "Scenario VMT, VT, TT Per Capita"
+    type: process
+    dependencies:
+        - urban_form_dem
+        - auto_ownership
+        - vmt_vt_tran_trips_per_capita
+        - reg_tran_access
+        - reg_auto_access
+        - ind_sup_grwth_travel
+
+scen_congest_vmt_spd_fac_class:
+    name: "Scenario Congestion VMT by Speed and Facility Class"
+    type: process
+    dependencies:
+        - scen_vmt_vt_tt_per_capita
+        - fwy_art_lane_mi_per_capita
+        - bus_rail_rev_mi_per_capita
+        - heav_truck_vmt_fac_class
+        - perc_fwy_arterial_mi_with_itstreatment
+
+policy_adj_vmt_vt_TT_per_capita:
+    name: "Policy Adjusted VMT, VT, TT Per Capita"
+    type: process
+    dependencies:
+        - scen_vmt_vt_tt_per_capita
+        - auto_op_surchg_per_vmt
+        - inc_commute_trip_parking
+        - inc_commercial_parking
+        - inc_perc_of_commute_option_offers
+
+heav_truck_vmt_fac_class:
+    name: "Heavy Truck VMT by Facility Class"
+    type: process
+    dependencies:
+        - frght_log_and_loc_strategies
+        - household_bus_syn
+
+ind_sup_grwth_travel:
+    name: "Induced / Supressed Growth and Travel"
+    type: process
+    dependencies:
+        - scen_congest_vmt_spd_fac_class
+
+policy_benefit_to_speed_congest:
+    name: "Policy Benefits to Speed, Congestion"
+    type: process
+    dependencies:
+        - policy_adj_vmt_vt_TT_per_capita
+
+reg_auto_access:
+    name: "Regional Auto Accessibility"
+    type: process
+    dependencies:
+        - lane_mi_fwy_art
+
+reg_tran_access:
+    name: "Regional Transit Accessibility"
+    type: process
+    dependencies:
+        - trans_rev
+
+regional_base_data:
+    name: "Regional Baseline Data (from MPO)"
+    type: process
+    members:
+        - pop_emp
+        - lane_mi_fwy_art
+        - trans_rev
+        - real_estate_mkt_cap_by_place_type
+        - vmt_vt_tran_trips_per_capita
+
+scenario_input:
+    name: "User-Supplied Scenario Input"
+    type: process
+    members:
+        - growth_place_type
+        - per_vmt_auto_oper_cost
+        - fwy_art_lane_mi_per_capita
+        - bus_rail_rev_mi_per_capita
+
+policy_input:
+    name: "User-Supplied TDM Policy Input"
+    type: process
+    members:
+        - auto_op_surchg_per_vmt
+        - inc_commute_trip_parking
+        - inc_commercial_parking
+        - inc_perc_of_commute_option_offers
+        - perc_fwy_arterial_mi_with_itstreatment
+        - frght_log_and_loc_strategies
