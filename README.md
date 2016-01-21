@@ -18,3 +18,8 @@ To create the python executable, edit the app.spec file to point to the location
 
 To create the installer, move the python distribution files, so it matches the location in the RPAT_Installer.iss and build the installer using Inno Setup.
 
+#Related
+
+VisionEval - https://github.com/gregorbj/VisionEval
+
+RSPM - https://github.com/gregorbj/RSPM
